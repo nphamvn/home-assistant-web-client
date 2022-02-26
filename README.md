@@ -47,5 +47,9 @@ ng build --output-path docs --base-href /project_name/
 6. Commit your changes and push.
 7. On the GitHub project page, go to Settings and scroll down to the GitHub Pages section to configure the site to publish from the docs folder.
 8. Click Save.
+<<<<<<< HEAD
 9. Click on the GitHub Pages link at the top of the GitHub Pages section to see deployed application. The format of the link is https://<user_name>.github.io/<project_name>/.
 
+=======
+9. Click on the GitHub Pages link at the top of the GitHub Pages section to see deployed application. The format of the link is https://<user_name>.github.io/<project_name>/.
+>>>>>>> e44d395e73079a97ea96f5bd422481fdb99f2791
