@@ -25,3 +25,27 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Deploy to GitHub Pages
+[Demo](https://nphamvn.github.io/home-assistant-web-client/)
+1. Create a GitHub repository for project.
+2. Configure git in local project 
+```
+git remote add origin https://github.com/your-username/your-project-name.git
+git branch -M main
+git push -u origin main
+```
+3. Create and check out a git branch named gh-pages.
+```
+git checkout -b gh-pages
+```
+4. Build project 
+```
+ng build --output-path docs --base-href /project_name/
+```
+5. Make a copy of docs/index.html and name it docs/404.html.
+6. Commit your changes and push.
+7. On the GitHub project page, go to Settings and scroll down to the GitHub Pages section to configure the site to publish from the docs folder.
+8. Click Save.
+9. Click on the GitHub Pages link at the top of the GitHub Pages section to see deployed application. The format of the link is https://<user_name>.github.io/<project_name>/.
+
