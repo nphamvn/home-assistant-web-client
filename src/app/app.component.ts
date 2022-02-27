@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { WeatherForecast } from './WeatherForecast';
+import { Router } from '@angular/router';
+import { User } from './shared/models/user';
+import { AccountService } from './shared/services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +9,12 @@ import { WeatherForecast } from './WeatherForecast';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'home-assistant-web-client';
-  weatherForecast: WeatherForecast[] = [];
-
-  constructor(private httpClient: HttpClient) { }
-  ngOnInit() {
-    this.getWeatherForecast();
+  title = 'Home Assistant';
+  currentUser?: User;
+  constructor(private accountService: AccountService) {
   }
-
-  private getWeatherForecast() {
-    this.httpClient.get<WeatherForecast[]>('https://nam-home-assistant.herokuapp.com/weatherforecast').subscribe(data => {
-      console.log(data);
-      this.weatherForecast = data;
-    });
+  ngOnInit() {
+    console.log('AppComponent#ngOnInit called');
+    this.accountService.populate();
   }
 }

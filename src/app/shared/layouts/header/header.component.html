@@ -1,0 +1,4 @@
+<nav>
+    Current User: {{(currentUser | async)?.firstName || 'Not logged in'}}
+    <button [hidden]="!isLoggedIn" (click)="logout()">Logout</button>
+</nav>
