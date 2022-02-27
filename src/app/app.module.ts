@@ -11,6 +11,7 @@ import { HeaderComponent } from './shared/layouts/header/header.component';
 import { FooterComponent } from './shared/layouts/footer/footer.component';
 import { HttpTokenService } from './shared/interceptors/http-token.service';
 import { HealthComponent } from './health/health.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HealthComponent } from './health/health.component';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    HealthComponent
+    HealthComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

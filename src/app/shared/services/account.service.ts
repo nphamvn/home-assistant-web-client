@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, map, Observable, of, ReplaySubject } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
@@ -26,13 +25,11 @@ export class AccountService {
   populate() {
     // If JWT detected, attempt to get & store user's info
     if (this.jwtService.getToken()) {
-      console.log('attempt to get & store user info');
       this.apiService.get('/account/token')
         .subscribe({
           next: user => this.setAuth(user),
           error: () => {
-            console.log('attempt to get & store user info error');
-            //this.purgeAuth()
+            this.purgeAuth()
           }
         });
     } else {
@@ -73,4 +70,17 @@ export class AccountService {
     // Set isAuthenticated to true
     this.isAuthenticatedSubject.next(true);
   }
+
+  register(model: any): Observable<User> {
+    return this.apiService.post('/account/register', model)
+      .pipe(map(
+        user => {
+          if (user) {
+            this.setAuth(user);
+            return user;
+          }
+        }
+      ));
+  }
+
 }

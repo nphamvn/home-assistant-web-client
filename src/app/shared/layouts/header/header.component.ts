@@ -10,6 +10,7 @@ import { AccountService } from '../../services/account.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  user: User | undefined
   currentUser: Observable<User> | undefined;
   isLoggedIn = false;
   constructor(private accountService: AccountService, private router: Router) { }

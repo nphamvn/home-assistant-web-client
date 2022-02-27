@@ -47,7 +47,7 @@ With this project, the command will be
 ```
 ng build --output-path docs --base-href /home-assistant-web-client/
 ```
-5. Make a copy of docs/index.html and name it docs/404.html.
+5. Make a copy of docs/index.html and name it docs/404.html. (Required)
 6. Commit your changes and push.
 7. On the GitHub project page, go to Settings and scroll down to the GitHub Pages section to configure the site to publish from the docs folder.
 8. Click Save.
