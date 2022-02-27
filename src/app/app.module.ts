@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './shared/layouts/header/header.component';
 import { FooterComponent } from './shared/layouts/footer/footer.component';
 import { HttpTokenService } from './shared/interceptors/http-token.service';
+import { HealthComponent } from './health/health.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HttpTokenService } from './shared/interceptors/http-token.service';
     LoginComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HealthComponent
   ],
   imports: [
     BrowserModule,
