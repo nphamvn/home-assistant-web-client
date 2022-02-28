@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
+    console.log('HomeComponent#ngOnInit called');
     this.accountService.currentUser.subscribe({
       next: (user: User) => {
         this.currentUser = user;

@@ -1,4 +1,8 @@
 <nav>
+    <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/chat">Chat</a></li>
+    </ul>
     {{(currentUser | async)?.firstName || 'Not logged in'}}
     <button [hidden]="!isLoggedIn" (click)="logout()">Logout</button>
 </nav>

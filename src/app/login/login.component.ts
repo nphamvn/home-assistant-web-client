@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.accountService.logIn({ username: username, password: password }).subscribe({
       next: data => {
         console.log(data);
-        this.router.navigateByUrl('home');
+        this.router.navigateByUrl('');
       },
       complete: () => {
         this.isSubmitting = true;

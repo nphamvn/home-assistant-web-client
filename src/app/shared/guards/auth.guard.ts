@@ -9,9 +9,16 @@ import { AccountService } from '../services/account.service';
 export class AuthGuard implements CanActivate {
   constructor(private router: Router, private accountService: AccountService) { }
   canActivate(): Observable<boolean> {
-    console.log('AuthGuard#canActivate called');
-    return of(true);
-    return this.accountService.isAuthenticated.pipe(take(1));
+    //return of(true);
+    return this.accountService.isAuthenticated.pipe(take(1),
+      map((isAuthenticated: boolean) => {
+
+        console.log('AuthGuard#canActivate called.  isAuthenticated = ' + isAuthenticated);
+        if (!isAuthenticated) {
+          this.router.navigateByUrl('login');
+        }
+        return isAuthenticated;
+      }));
     // const result = this.accountService.isAuthenticated.pipe(take(1),
     //   map((isAuthenticated: boolean) => {
     //     if (!isAuthenticated) {
