@@ -1,1 +1,14 @@
-<p>chat-view works!</p>
+<div>
+    <ul>
+        <li *ngFor="let message of messages">
+            <p><span>{{message.author}}</span>: <span>{{message.text}}</span></p>
+        </li>
+    </ul>
+
+    <form (submit)="sendMessage()">
+        <input type="text" [(ngModel)]="to" name="to" />
+        <br>
+        <input type="text" [(ngModel)]="sendText" name="sendText" />
+        <button type="submit">Send</button>
+    </form>
+</div>

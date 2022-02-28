@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
   constructor(private accountService: AccountService) {
   }
   ngOnInit() {
-    console.log('AppComponent#ngOnInit called');
     this.accountService.populate();
   }
 }

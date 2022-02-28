@@ -5,6 +5,9 @@ import { User } from '../models/user';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 
+import * as signalr from '@microsoft/signalr';
+import { ChatService } from 'src/app/chat/chat.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -61,8 +64,18 @@ export class AccountService {
         }
       ));
   }
+  connection?: signalr.HubConnection;;
 
   setAuth(user: User) {
+
+    //Connect to SignalR
+    // this.connection = new signalr.HubConnectionBuilder()
+    //   .withUrl('https://localhost:5001/hubs/chat', { accessTokenFactory: () => user.accessToken })
+    //   .configureLogging(signalr.LogLevel.Information)
+    //   .build();
+    //
+    //this.connection.start();
+    //this.chatService.connect();
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.accessToken);
     // Set current user data into observable
