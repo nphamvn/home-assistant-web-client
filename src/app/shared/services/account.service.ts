@@ -37,7 +37,6 @@ export class AccountService {
         });
     } else {
       // Remove any potential remnants of previous auth states
-      console.log('Remove any potential remnants of previous auth states');
       this.purgeAuth();
     }
   }

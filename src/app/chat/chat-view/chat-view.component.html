@@ -1,10 +1,16 @@
 <div>
+    Conversations
+    <ul>
+        <li *ngFor="let c of conversations">ConversationId {{c.id}}</li>
+    </ul>
+</div>
+<div>
+    Message
     <ul>
         <li *ngFor="let message of messages">
             <p><span>{{message.author}}</span>: <span>{{message.text}}</span></p>
         </li>
     </ul>
-
     <form (submit)="sendMessage()">
         <input type="text" [(ngModel)]="to" name="to" />
         <br>

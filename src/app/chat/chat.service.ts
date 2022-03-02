@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AccountService } from '../shared/services/account.service';
+import { ApiService } from '../shared/services/api.service';
 import { JwtService } from '../shared/services/jwt.service';
+import { Conversation } from './conversation';
 import { Message } from './message';
 
 @Injectable({
@@ -13,7 +15,8 @@ export class ChatService {
   private connection?: HubConnection;
   private messageSource = new BehaviorSubject<Message[]>([]);
   messagesSubject = this.messageSource.asObservable();
-  constructor(private jwtService: JwtService, private accountService: AccountService) {
+  constructor(private jwtService: JwtService, private accountService: AccountService,
+    private apiService: ApiService) {
     this.accountService.currentUser.subscribe(user => {
       if (user) {
         this.connect();
@@ -29,17 +32,27 @@ export class ChatService {
       //console.log('connected');
     }).catch(err => console.log('Error while establishing connection'));
 
-    this.connection.on('ReceiveMessage', (user, message) => {
-      console.log('ReceiveMessage', user, message);
+    this.connection.on('ReceiveMessage', (conversationId, message) => {
+      console.log('ReceiveMessage', conversationId, message);
       this.messagesSubject.pipe(take(1)).subscribe(messages => {
-        this.messageSource.next([...messages, { text: message, author: user }]);
+        this.messageSource.next([...messages, { text: message, conversationId: conversationId }]);
       })
     });
   }
 
   sendMessage(message: any) {
     console.log('sendMessage', message);
-    this.connection?.invoke('SendMessage', message.user, message.message)
-      .catch(err => console.error(err));
+    if (message.conversationId != undefined) {
+      this.connection?.invoke('SendMessage', message.conversationId, undefined, message.message)
+        .catch(err => console.error(err));
+    }
+    else {
+      this.connection?.invoke('SendMessage', undefined, message.user, message.message)
+        .catch(err => console.error(err));
+    }
+  }
+
+  getConversations(): Observable<Conversation[]> {
+    return this.apiService.get('/chat/conversation');
   }
 }

@@ -12,6 +12,7 @@ import { FooterComponent } from './shared/layouts/footer/footer.component';
 import { HttpTokenService } from './shared/interceptors/http-token.service';
 import { HealthComponent } from './health/health.component';
 import { RegisterComponent } from './register/register.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {
