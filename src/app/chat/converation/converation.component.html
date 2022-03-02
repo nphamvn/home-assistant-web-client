@@ -1,0 +1,7 @@
+<div>
+    Conversations
+    <ul>
+        <li *ngFor="let c of conversations"><button (click)="openConversation(c)">ConversationId {{c.id}}</button>
+        </li>
+    </ul>
+</div>

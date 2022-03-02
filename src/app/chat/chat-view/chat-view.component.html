@@ -1,20 +1,8 @@
+<app-converation></app-converation>
 <div>
-    Conversations
+    Contacts
     <ul>
-        <li *ngFor="let c of conversations">ConversationId {{c.id}}</li>
+        <li *ngFor="let c of contacts">{{c.firstName}} ({{c.userName}})</li>
     </ul>
 </div>
-<div>
-    Message
-    <ul>
-        <li *ngFor="let message of messages">
-            <p><span>{{message.author}}</span>: <span>{{message.text}}</span></p>
-        </li>
-    </ul>
-    <form (submit)="sendMessage()">
-        <input type="text" [(ngModel)]="to" name="to" />
-        <br>
-        <input type="text" [(ngModel)]="sendText" name="sendText" />
-        <button type="submit">Send</button>
-    </form>
-</div>
+<app-message-view></app-message-view>

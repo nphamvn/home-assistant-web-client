@@ -21,7 +21,8 @@ export class AccountService {
 
   constructor(private httpClient: HttpClient,
     private apiService: ApiService,
-    private jwtService: JwtService) { }
+    private jwtService: JwtService,
+    private chatService: ChatService) { }
 
   // Verify JWT in localstorage with server & load user's info.
   // This runs once on application startup.
@@ -63,18 +64,8 @@ export class AccountService {
         }
       ));
   }
-  connection?: signalr.HubConnection;;
 
   setAuth(user: User) {
-
-    //Connect to SignalR
-    // this.connection = new signalr.HubConnectionBuilder()
-    //   .withUrl('https://localhost:5001/hubs/chat', { accessTokenFactory: () => user.accessToken })
-    //   .configureLogging(signalr.LogLevel.Information)
-    //   .build();
-    //
-    //this.connection.start();
-    //this.chatService.connect();
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.accessToken);
     // Set current user data into observable

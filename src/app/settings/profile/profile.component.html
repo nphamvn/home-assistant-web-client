@@ -1,1 +1,39 @@
-<p>profile works!</p>
+<h2>Register</h2>
+<form #ngForm="ngForm" (ngSubmit)="save()">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" required [(ngModel)]="form.username" name="username"
+            #username="ngModel">
+        <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
+            Username is required
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" required [(ngModel)]="form.email" name="email"
+            #email="ngModel">
+        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+            Email is required
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" [(ngModel)]="form.firstName" name="firstName"
+            #firstName="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" [(ngModel)]="form.lastName" name="lastName"
+            #lastName="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6"
+            #password="ngModel" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">
+            Register
+        </button>
+    </div>
+</form>

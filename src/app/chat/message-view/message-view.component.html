@@ -1,0 +1,12 @@
+<div *ngIf="_conversation">
+    Message
+    <ul>
+        <li *ngFor="let message of messages">
+            <p><span>{{message.conversationId}}</span>: <span>{{message.text}}</span></p>
+        </li>
+    </ul>
+    <form (submit)="sendMessage()">
+        <input type="text" [(ngModel)]="sendText" name="sendText" />
+        <button type="submit">Send</button>
+    </form>
+</div>
