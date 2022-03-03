@@ -2,19 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ChatRoutingModule } from './chat-routing.module';
-import { ChatViewComponent } from './chat-view/chat-view.component';
 import { FormsModule } from '@angular/forms';
-import { ConverationComponent } from './converation/converation.component';
+import { ConversationComponent } from './conversation/conversation.component';
 import { MessageViewComponent } from './message-view/message-view.component';
 import { ContactComponent } from './contact/contact.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 @NgModule({
   declarations: [
-    ChatViewComponent,
-    ConverationComponent,
+    ConversationComponent,
     MessageViewComponent,
-    ContactComponent
+    ContactComponent,
+    ChatComponent
   ],
   imports: [
     CommonModule,

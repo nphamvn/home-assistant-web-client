@@ -6,7 +6,7 @@
     </ul>
     <ul>
         <li>
-            {{(currentUser | async)?.firstName || 'Not logged in'}}
+            {{(currentUser | async)?.firstName}}
             <button [hidden]="!isLoggedIn" (click)="logout()">Logout</button>
             <a [hidden]="isLoggedIn" routerLink="/login">Login</a>
         </li>

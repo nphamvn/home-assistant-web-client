@@ -5,10 +5,10 @@ import { ConversationService } from '../conversation.service';
 
 @Component({
   selector: 'app-converation',
-  templateUrl: './converation.component.html',
-  styleUrls: ['./converation.component.css']
+  templateUrl: './conversation.component.html',
+  styleUrls: ['./conversation.component.css']
 })
-export class ConverationComponent implements OnInit {
+export class ConversationComponent implements OnInit {
   conversations: Conversation[] = [];
   constructor(private chatService: ChatService, private conversationService: ConversationService) { }
 
