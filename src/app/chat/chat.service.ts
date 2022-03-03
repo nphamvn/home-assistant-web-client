@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, map, Observable, ReplaySubject, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../shared/models/user';
 import { AccountService } from '../shared/services/account.service';
@@ -15,8 +15,12 @@ import { Message } from './message';
 })
 export class ChatService {
   private connection?: HubConnection;
-  private messageSource = new BehaviorSubject<Message[]>([]);
-  messagesSubject = this.messageSource.asObservable();
+  private messagesSource = new BehaviorSubject<Message[]>([]);
+  messagesSubject = this.messagesSource.asObservable();
+
+  private messageSource = new ReplaySubject<Message>();
+  messageSubject = this.messageSource.asObservable();
+
   constructor(private jwtService: JwtService,
     private apiService: ApiService) {
     jwtService.currentTokenSubject.subscribe(token => {
@@ -37,11 +41,15 @@ export class ChatService {
     }).catch(err => console.log('Error while establishing connection'));
 
     this.connection.on('ReceiveMessage', (conversationId, message) => {
-      console.log('ReceiveMessage', conversationId, message);
+      this.messageSource.next({ conversationId: conversationId, text: message });
       this.messagesSubject.pipe(take(1)).subscribe(messages => {
-        this.messageSource.next([...messages, { text: message, conversationId: conversationId }]);
+        this.messagesSource.next([...messages, { text: message, conversationId: conversationId }]);
       })
     });
+    this.connection.on('UserOffline', (username) => {
+      //TODO: implement
+      this.messageSource.next({ text: `${username} is offline` });
+    })
   }
 
   disconnect() {

@@ -28,9 +28,13 @@ export class MessageViewComponent implements OnInit {
       this._conversation = message;
       this.loadMessages();
     });
+    chatService.messageSubject.subscribe(message => {
+      this.messages.push(message);
+    });
   }
 
   ngOnInit(): void {
+
   }
 
   loadMessages() {

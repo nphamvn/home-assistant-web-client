@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './shared/layouts/header/header.component';
 import { FooterComponent } from './shared/layouts/footer/footer.component';
 import { HttpTokenService } from './shared/interceptors/http-token.service';
-import { HealthComponent } from './health/health.component';
 import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -21,7 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    HealthComponent,
     RegisterComponent
   ],
   imports: [
