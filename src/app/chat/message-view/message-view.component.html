@@ -1,12 +1,12 @@
-<div *ngIf="_conversation">
-    Message
+<div *ngIf="conversation">
+    Message with {{conversation.Contact?.username}}
     <ul>
         <li *ngFor="let message of messages">
-            <p><span>{{message.conversationId}}</span>: <span>{{message.text}}</span></p>
+            clientId: {{message.clientId}}
+            conversationId: {{message.conversationId}}
+            serverId: {{message.id}}
+            message: {{message.text}}
         </li>
     </ul>
-    <form (submit)="sendMessage()">
-        <input type="text" [(ngModel)]="sendText" name="sendText" />
-        <button type="submit">Send</button>
-    </form>
+    <app-send-message></app-send-message>
 </div>

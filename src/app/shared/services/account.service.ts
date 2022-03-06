@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, map, Observable, of, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, Observable, of, ReplaySubject, take } from 'rxjs';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
@@ -13,16 +13,14 @@ import { ChatService } from 'src/app/chat/chat.service';
 })
 export class AccountService {
 
+
   private currentUserSubject = new BehaviorSubject<User>({} as User);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
-  constructor(private httpClient: HttpClient,
-    private apiService: ApiService,
-    private jwtService: JwtService,
-    private chatService: ChatService) { }
+  constructor(private apiService: ApiService, private jwtService: JwtService) { }
 
   // Verify JWT in localstorage with server & load user's info.
   // This runs once on application startup.
@@ -86,4 +84,22 @@ export class AccountService {
       ));
   }
 
+  changePassword(form: { currentPassword: string; newPassword: string; confirmPassword: string; }): Observable<any> {
+    //throw new Error('Method not implemented.');
+    return this.apiService.post('/account/change-password', form);
+  }
+
+  hasRole(role: string): boolean {
+    const token = this.jwtService.getToken();
+    let payload = token.split('.')[1];
+    let decoded = window.atob(payload);
+    const values = JSON.parse(decoded);
+    const roles = values.role;
+    if (roles.isArray) {
+      return roles.includes(role);
+    }
+    else {
+      return roles === role;
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,9 +9,9 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './shared/layouts/header/header.component';
 import { FooterComponent } from './shared/layouts/footer/footer.component';
-import { HttpTokenService } from './shared/interceptors/http-token.service';
 import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { interceptorProviders } from './shared/interceptors/interceptors';
 
 @NgModule({
   declarations: [
@@ -29,13 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpTokenService,
-      multi: true
-    }
-  ],
+  providers: interceptorProviders,
   bootstrap: [AppComponent]
 })
 export class AppModule { }

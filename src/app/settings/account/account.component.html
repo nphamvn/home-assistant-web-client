@@ -1,0 +1,21 @@
+<form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="currentPassword">
+            Current Password
+        </label>
+        <input id="currentPassword" type="text" formControlName="currentPassword">
+    </div>
+    <div>
+        <label for="newPassword">
+            New Password
+        </label>
+        <input id="newPassword" type="password" formControlName="newPassword">
+    </div>
+    <div>
+        <label for="confirmPassword">
+            Confirm Password
+        </label>
+        <input id="confirmPassword" type="password" formControlName="confirmPassword">
+    </div>
+    <button type="submit">Set New Password</button>
+</form>

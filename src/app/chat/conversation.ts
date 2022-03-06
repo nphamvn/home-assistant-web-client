@@ -1,6 +1,11 @@
+import { Contact } from "./contact/contact";
+
 export interface Conversation {
-    id: number;
-    name: string;
-    creatorId: string;
-    partnerId: string;
+    id?: number;
+    clientId?: string;
+    name?: string;
+    //creatorId?: string;
+    //partnerId?: string;
+    //partnerUsername?: string;
+    Contact?: Contact;
 }

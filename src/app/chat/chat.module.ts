@@ -7,6 +7,7 @@ import { ConversationComponent } from './conversation/conversation.component';
 import { MessageViewComponent } from './message-view/message-view.component';
 import { ContactComponent } from './contact/contact.component';
 import { ChatComponent } from './chat/chat.component';
+import { SendMessageComponent } from './send-message/send-message.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ChatComponent } from './chat/chat.component';
     ConversationComponent,
     MessageViewComponent,
     ContactComponent,
-    ChatComponent
+    ChatComponent,
+    SendMessageComponent
   ],
   imports: [
     CommonModule,

@@ -15,12 +15,13 @@ export class ConversationComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserConversations();
   }
+
   loadUserConversations() {
     this.chatService.getConversations().subscribe(conversations => {
       this.conversations = conversations;
     });
   }
   openConversation(conversation: Conversation) {
-    this.conversationService.updateMessage(conversation);
+    this.conversationService.openConversation(conversation);
   }
 }

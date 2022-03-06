@@ -7,18 +7,21 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ProfileComponent } from './profile/profile.component';
+import { AccountComponent } from './account/account.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    AccountComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     SettingsRoutingModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: []
 })

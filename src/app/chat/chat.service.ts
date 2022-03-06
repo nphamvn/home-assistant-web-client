@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { BehaviorSubject, map, Observable, ReplaySubject, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from '../shared/models/user';
-import { AccountService } from '../shared/services/account.service';
 import { ApiService } from '../shared/services/api.service';
 import { JwtService } from '../shared/services/jwt.service';
-import { ChatUser as ChatContact } from './chatContact';
+import { UuidService } from '../shared/services/uuid.service';
+import { Contact } from './contact/contact';
 import { Conversation } from './conversation';
 import { Message } from './message';
 
@@ -15,14 +14,15 @@ import { Message } from './message';
 })
 export class ChatService {
   private connection?: HubConnection;
-  private messagesSource = new BehaviorSubject<Message[]>([]);
-  messagesSubject = this.messagesSource.asObservable();
 
-  private messageSource = new ReplaySubject<Message>();
-  messageSubject = this.messageSource.asObservable();
+  private newMessages = new BehaviorSubject<Message[]>([]);
+  newMessagesSource = this.newMessages.asObservable();
+
+  private pendingMessages = new ReplaySubject<Message[]>();
+  pendingMessagesSubject = this.pendingMessages.asObservable();
 
   constructor(private jwtService: JwtService,
-    private apiService: ApiService) {
+    private apiService: ApiService, private uuidService: UuidService) {
     jwtService.currentTokenSubject.subscribe(token => {
       if (token) {
         this.connect();
@@ -32,23 +32,39 @@ export class ChatService {
       }
     });
   }
+
   connect() {
     this.connection = new HubConnectionBuilder()
       .withUrl(`${environment.baseUrl}/hubs/chat`, { accessTokenFactory: () => this.jwtService.getToken() })
       .build();
 
-    this.connection.start().then(() => {
-    }).catch(err => console.log('Error while establishing connection'));
+    this.connection.start()
+      .then(() => { })
+      .catch(err => console.log('Error while establishing connection'));
 
-    this.connection.on('ReceiveMessage', (conversationId, message) => {
-      this.messageSource.next({ conversationId: conversationId, text: message });
-      this.messagesSubject.pipe(take(1)).subscribe(messages => {
-        this.messagesSource.next([...messages, { text: message, conversationId: conversationId }]);
+    this.connection.on('MessageSent', (message: Message) => {
+      console.log('MessageSent: ' + JSON.stringify(message));
+
+      this.newMessagesSource.pipe(take(1)).subscribe(messages => {
+        const index = messages.findIndex(m => m.clientId == message.clientId);
+        console.log('Index: ' + index);
+        if (index == -1) {
+          this.newMessages.next([...messages, message]);
+        }
+        else {
+          this.newMessages.next([...messages.slice(0, index), message, ...messages.slice(index + 1)]);
+        }
       })
     });
+
+    this.connection.on('ReceiveMessage', (conversationId, message) => {
+      this.newMessagesSource.pipe(take(1)).subscribe(messages => {
+        this.newMessages.next([...messages, { Conversation: { id: conversationId }, text: message }]);
+      })
+    });
+
     this.connection.on('UserOffline', (username) => {
       //TODO: implement
-      this.messageSource.next({ text: `${username} is offline` });
     })
   }
 
@@ -56,29 +72,37 @@ export class ChatService {
     this.connection?.stop();
   }
 
-  sendMessage(message: any) {
-
-    if (message.conversationId != undefined) {
-      console.log('sendMessage: conversationId', message.conversationId);
-      this.connection?.invoke('SendMessage', message.conversationId, undefined, message.message)
-        .catch(err => console.error(err));
+  sendMessage(message: Message) {
+    const msg = {
+      ClientId: message.clientId,
+      ConversationId: message.conversationId,
+      ClientConversationId: message.Conversation?.clientId,
+      Username: message.partnerUsername,
+      Text: message.text
     }
-    else {
-      console.log('sendMessage: username', message.username);
-      this.connection?.invoke('SendMessage', undefined, message.username, message.message)
-        .catch(err => console.error(err));
-    }
+    console.log('Send message to conversation: ', JSON.stringify(msg));
+    this.connection?.invoke('SendMessage', msg)
+      .catch(err => console.error(err))
+      .finally(() => {
+        this.pendingMessagesSubject.pipe(take(1)).subscribe(messages => {
+          this.pendingMessages.next([...messages, message]);
+        });
+      });
   }
 
   getConversations(): Observable<Conversation[]> {
     return this.apiService.get('/chat/conversation');
   }
 
-  getContacts(): Observable<ChatContact[]> {
+  getContacts(): Observable<Contact[]> {
     return this.apiService.get('/chat/contact');
   }
 
   getConversationMessages(conversationId: number): Observable<Message[]> {
-    return this.apiService.get(`/chat/message?conversationId=${conversationId}`);
+    return this.apiService.get(`/chat/conversation/${conversationId}/messages`);
+  }
+
+  getConversation(username: string): Observable<Conversation> {
+    return this.apiService.get(`/chat/conversation?participant=${username}`);
   }
 }

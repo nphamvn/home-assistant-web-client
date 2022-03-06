@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
-import { Contact } from '../contact/contact';
 import { Conversation } from '../conversation';
 import { ConversationService } from '../conversation.service';
 import { Message } from '../message';
@@ -11,49 +10,51 @@ import { Message } from '../message';
   styleUrls: ['./message-view.component.css']
 })
 export class MessageViewComponent implements OnInit {
-  _conversation: Conversation | undefined;
-  // @Input()
-  // set conversation(conversation: Conversation) {
-  //   console.log('MessageViewComponent.conversation');
-  //   this._conversation = conversation;
-  //   this.loadMessages();
-  // }
-  //@Input() conversation: Conversation | undefined;
-  @Input() contact: Contact | undefined;
+  conversation: Conversation | undefined;
   messages: Message[] = [];
   sendText = '';
-  constructor(private chatService: ChatService, private conversationService: ConversationService) {
-    console.log('MessageViewComponent.constructor');
-    conversationService.getMessage().subscribe(message => {
-      this._conversation = message;
-      this.loadMessages();
-    });
-    chatService.messageSubject.subscribe(message => {
-      this.messages.push(message);
-    });
+
+  constructor(private chatService: ChatService, conversationService: ConversationService) {
+    conversationService.conversationSubject.subscribe(conversation => {
+      this.conversation = conversation;
+      if (conversation.id != undefined) {
+        console.log('Loading messages with conversation id ' + conversation.id);
+        this.loadMessages();
+      }
+      else if (conversation.Contact != undefined) {
+        //Check if conversation exists
+        this.chatService.getConversation(conversation.Contact.username).subscribe(c => {
+          if (c) {
+            this.conversation = c;
+            this.loadMessages();
+          }
+          else {
+            // Don't create new conversation here because user may not want to create a new conversation. 
+            // He may just want to check if there is a conversation with the user.
+            console.log('No conversation with user: ' + conversation.Contact?.username);
+          }
+        });
+      }
+    }
+    );
+
+    chatService.newMessagesSource.subscribe(messages => {
+      if (this.conversation?.id) {
+        const newMessages = messages.filter(m => m.conversationId == this.conversation?.id && m.id == undefined);
+        this.messages = this.messages.concat(newMessages);
+      }
+    }
+    );
   }
 
   ngOnInit(): void {
-
   }
 
   loadMessages() {
-    if (this._conversation) {
-      this.chatService.getConversationMessages(this._conversation.id).subscribe(messages => {
+    if (this.conversation?.id) {
+      this.chatService.getConversationMessages(this.conversation.id).subscribe(messages => {
         this.messages = messages;
       })
     }
-  }
-
-  sendMessage() {
-    if (this._conversation) {
-      this.chatService.sendMessage({ conversationId: this._conversation.id, message: this.sendText });
-    } else if (this.contact) {
-      this.chatService.sendMessage({ username: this.contact.userName, message: this.sendText });
-      //this.conversation = new Conversation();
-      //this.chatService.sendMessage(this.contact.userName, this.contact.userName, this.contact.userName, this.contact.userName, this.contact.userName);
-    }
-    this.messages.push({ id: 1, text: this.sendText });
-    this.sendText = '';
   }
 }

@@ -1,6 +1,7 @@
 <div>
     Contacts
     <ul>
-        <li *ngFor="let c of contacts">{{c.firstName}} ({{c.userName}})</li>
+        <li *ngFor="let c of contacts" (click)="openConversation(c)">{{c.firstName}} ({{c.username}}, conversationId:
+            {{c.Conversation?.id}})</li>
     </ul>
 </div>

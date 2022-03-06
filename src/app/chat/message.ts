@@ -1,6 +1,11 @@
+import { Conversation } from "./conversation";
+
 export interface Message {
     id?: number;
-    conversationId?: number;
-    author?: string;
+    clientId?: string;
     text: string;
+    partnerUsername?: string;
+    conversationId?: number;
+    clientConversationId?: string;
+    Conversation?: Conversation;
 }

@@ -1,0 +1,5 @@
+<form (submit)="sendMessage()">
+    <input type="text" [(ngModel)]="sendText" name="sendText"
+        placeholder="send message to{{conversation?.Contact?.username}}" />
+    <button type="submit">Send</button>
+</form>
