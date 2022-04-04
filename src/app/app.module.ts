@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './shared/layouts/header/header.component';
 import { FooterComponent } from './shared/layouts/footer/footer.component';
@@ -17,7 +16,6 @@ import { interceptorProviders } from './shared/interceptors/interceptors';
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
     HeaderComponent,
     FooterComponent,
     RegisterComponent
