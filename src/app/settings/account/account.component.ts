@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { AccountService } from 'src/app/shared/services/account.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class AccountComponent implements OnInit {
     newPassword: '',
     confirmPassword: ''
   })
-  constructor(private accountService: AccountService, private formBuilder: FormBuilder) { }
+  constructor(private accountService: AccountService, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
   }

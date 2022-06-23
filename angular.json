@@ -104,5 +104,7 @@
       }
     }
   },
-  "defaultProject": "home-assistant-web-client"
+  "cli": {
+    "analytics": false
+  }
 }
