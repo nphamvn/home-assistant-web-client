@@ -5,13 +5,17 @@ import { HomeRoutingModule } from './home-routing.module';
 import { EnvironmentComponent } from './environment/environment.component';
 import { HomeComponent } from './home/home.component';
 import { LightComponent } from './light/light.component';
+import { CameraComponent } from './camera/camera.component';
+import { AirconComponent } from './aircon/aircon.component';
 
 
 @NgModule({
   declarations: [
     EnvironmentComponent,
     HomeComponent,
-    LightComponent
+    LightComponent,
+    CameraComponent,
+    AirconComponent
   ],
   imports: [
     CommonModule,

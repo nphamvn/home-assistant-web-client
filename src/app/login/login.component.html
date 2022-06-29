@@ -1,20 +1,25 @@
-<form #ngForm="ngForm" (ngSubmit)="login()">
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" required [(ngModel)]="form.username" name="name"
-            #name="ngModel">
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-            Name is required
+<div class="container my-10 flex justify-center">
+    <form class="form px-4" #ngForm="ngForm" (ngSubmit)="login()">
+        <div class="flex p-1">
+            <label class="form-lable py-2" for="name">Username</label>
+            <input type="text"
+                class="flex-1 px-3 py-2 border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-lg"
+                id="name" required [(ngModel)]="form.username" name="name" #name="ngModel">
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                Name is required
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6"
-            #password="ngModel" />
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block">
-            Login
-        </button>
-    </div>
-</form>
+        <div class="flex p-1">
+            <label class="form-lable py-2" for="password">Password</label>
+            <input type="password"
+                class="flex-1 px-3 py-2 border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-lg"
+                name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
+        </div>
+        <div class="flex justify-center mt-2">
+            <button type="submit"
+                class="w-48 bg-sky-600 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-lg text-white">
+                Login
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,15 +1,21 @@
-<nav>
+<nav class="bg-slate-600 flex justify-between text-white">
     <ul>
-        <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/chat">Chat</a></li>
-        <li><a routerLink="/settings" [hidden]="!isLoggedIn">Settings</a></li>
+        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black"><a routerLink="/">Home</a></li>
+        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black"><a routerLink="/chat">Chat</a>
+        </li>
+        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black"><a routerLink="/settings"
+                [hidden]="!isLoggedIn">Settings</a>
+        </li>
     </ul>
     <ul>
-        <li>
+        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black">
             {{(currentUser | async)?.firstName}}
+        </li>
+        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black">
             <button [hidden]="!isLoggedIn" (click)="logout()">Logout</button>
             <a [hidden]="isLoggedIn" routerLink="/login">Login</a>
         </li>
-        <li><a routerLink="/register">Register</a></li>
+        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black"><a
+                routerLink="/register">Register</a></li>
     </ul>
 </nav>
