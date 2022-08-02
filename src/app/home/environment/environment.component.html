@@ -6,7 +6,7 @@
             <div>
                 <p class="text-sm">&nbsp;</p>
 
-                <p class="text-5xl">35<span>&#176;</span></p>
+                <p class="text-5xl">{{inside?.temperatureC}}<span>&#176;</span></p>
             </div>
         </div>
         <div class="flex-1 text-center">
@@ -14,10 +14,6 @@
             <div>
                 <p class="text-sm">{{outside?.name}}</p>
                 <p class="text-5xl">{{outside?.main?.temp}}<span>&#176;</span></p>
-                <!-- <div class="flex justify-center">
-                    <p class="p-2">H: <span>{{outside?.main?.tempMax}}</span></p>
-                    <p class="p-2">L: <span>{{outside?.main?.tempMin}}</span></p>
-                </div> -->
             </div>
         </div>
     </div>

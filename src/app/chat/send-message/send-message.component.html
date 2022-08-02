@@ -1,5 +1,9 @@
-<form (submit)="sendMessage()">
-    <input type="text" [(ngModel)]="sendText" name="sendText"
-        placeholder="send message to{{conversation?.Contact?.username}}" />
-    <button type="submit">Send</button>
-</form>
+<div>
+    <form class="flex" (submit)="sendMessage()">
+        <input class="border rounded-md px-2 py-2 w-full mr-2" type="text" [(ngModel)]="sendText" name="sendText"
+            placeholder="Type message..." />
+        <button class="w-16 bg-sky-400 rounded-md" role="button" type="submit">
+            <fa-icon [icon]="faPlane" class="text-white"></fa-icon>
+        </button>
+    </form>
+</div>

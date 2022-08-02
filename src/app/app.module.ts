@@ -11,6 +11,7 @@ import { FooterComponent } from './shared/layouts/footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { interceptorProviders } from './shared/interceptors/interceptors';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { interceptorProviders } from './shared/interceptors/interceptors';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FontAwesomeModule
   ],
   providers: interceptorProviders,
   bootstrap: [AppComponent]

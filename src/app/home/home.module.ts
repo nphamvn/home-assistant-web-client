@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { LightComponent } from './light/light.component';
 import { CameraComponent } from './camera/camera.component';
 import { AirconComponent } from './aircon/aircon.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AirconComponent } from './aircon/aircon.component';
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    FontAwesomeModule
   ]
 })
 export class HomeModule { }

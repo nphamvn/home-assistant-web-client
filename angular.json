@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/home-assistant-web-client",
+            "outputPath": "dist/home-assistant",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,7 +72,8 @@
               "browserTarget": "home-assistant-web-client:build:production"
             },
             "development": {
-              "browserTarget": "home-assistant-web-client:build:development"
+              "browserTarget": "home-assistant-web-client:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

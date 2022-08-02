@@ -1,12 +1,30 @@
-<div *ngIf="conversation">
-    Message with {{conversation.Contact?.username}}
-    <ul>
-        <li *ngFor="let message of messages">
-            clientId: {{message.clientId}}
-            conversationId: {{message.conversationId}}
-            serverId: {{message.id}}
-            message: {{message.text}}
-        </li>
-    </ul>
+<div *ngIf="conversation" class="h-5/6 flex flex-col">
+    <!--Header-->
+    <div class="flex">
+        <img class="h-8 w-8 rounded-full" src="{{conversation.Contact?.imageUrl}}" alt="" />
+        <div class="ml-3 overflow-hidden">
+            <p class="text-sm font-medium text-slate-900 my-0">{{conversation.Contact?.firstName}}</p>
+        </div>
+    </div>
+    <!--Messages-->
+    <ng-container *ngIf="messages; then showMessages; else showEmpty">
+    </ng-container>
+    <ng-template #showMessages>
+        <div>
+            <ul>
+                <li *ngFor="let message of messages">
+                    clientId: {{message.clientId}}
+                    serverId: {{message.id}}
+                    message: {{message.text}}
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    <ng-template #showEmpty>
+        <div>
+
+        </div>
+    </ng-template>
+    <!--Send-->
     <app-send-message></app-send-message>
 </div>

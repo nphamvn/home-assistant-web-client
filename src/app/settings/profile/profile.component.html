@@ -1,39 +1,54 @@
-<h2>Profile</h2>
-<form #ngForm="ngForm" (ngSubmit)="save()">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" required [(ngModel)]="form.username" name="username"
-            #username="ngModel">
-        <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
-            Username is required
+<div class="container shadow-md px-8 py-6 flex flex-col w-9/12">
+    <h2 class="font-bold text-lg border-b">Public profile</h2>
+    <div class="w-full flex">
+        <form #ngForm="ngForm" class="w-9/12 flex flex-col px-3" (ngSubmit)="save()">
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                <input type="text" class="border rounded w-full py-2 px-3 focus:outline-none focus:shadow-sm"
+                    id="username" required [(ngModel)]="form.username" name="username" #username="ngModel">
+                <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
+                    Username is required
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-bold text-sm mb-2">Email</label>
+                <input type="text" class="border rounded w-full py-2 px-3 focus:outline-none focus:shadow-sm" id="email"
+                    required [(ngModel)]="form.email" name="email" #email="ngModel">
+                <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                    Email is required
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="firstName" class="block text-gray-700 font-bold text-sm mb-2">First Name</label>
+                <input type="text" class="border rounded py-2 px-3 w-full focus:outline-none focus:shadow-sm"
+                    id="firstName" [(ngModel)]="form.firstName" name="firstName" #firstName="ngModel">
+            </div>
+            <div class="mb-4">
+                <label for="lastName" class="block text-gray-700 font-bold text-sm mb-2">Last Name</label>
+                <input type="text" class="border rounded py-2 px-3 w-full focus:outline-none focus:shadow-sm"
+                    id="lastName" [(ngModel)]="form.lastName" name="lastName" #lastName="ngModel">
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 font-bold text-sm mb-2">Password</label>
+                <input type="password" class="border rounded py-2 px-3 w-full focus:outline-none focus:shadow-sm"
+                    name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="py-2 w-full bg-indigo-600 text-white rounded-lg">
+                    Update
+                </button>
+            </div>
+        </form>
+        <div class="w-3/12">
+            <label for="password" class="block text-gray-700 font-bold text-sm mb-2">Profile Picture</label>
+            <div>
+                <img src="{{photoUrl}}" class="rounded-full w-48 h-48 m-auto object-fill mb-2" />
+                <form action="">
+                    <label class="block mb-2 text-sm font-medium text-gray-700" for="file_input">Upload file</label>
+                    <input #imageInput class="block w-full text-sm text-gray-700 rounded-lg border p-2 cursor-pointer"
+                        aria-describedby="file_input_help" type="file">
+                </form>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" required [(ngModel)]="form.email" name="email"
-            #email="ngModel">
-        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-            Email is required
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" class="form-control" id="firstName" [(ngModel)]="form.firstName" name="firstName"
-            #firstName="ngModel">
-    </div>
-    <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" id="lastName" [(ngModel)]="form.lastName" name="lastName"
-            #lastName="ngModel">
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6"
-            #password="ngModel" />
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block">
-            Update
-        </button>
-    </div>
-</form>
+</div>

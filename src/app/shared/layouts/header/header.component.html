@@ -1,21 +1,18 @@
-<nav class="bg-slate-600 flex justify-between text-white">
-    <ul>
-        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black"><a routerLink="/">Home</a></li>
-        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black"><a routerLink="/chat">Chat</a>
-        </li>
-        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black"><a routerLink="/settings"
-                [hidden]="!isLoggedIn">Settings</a>
-        </li>
-    </ul>
-    <ul>
-        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black">
-            {{(currentUser | async)?.firstName}}
-        </li>
-        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black">
-            <button [hidden]="!isLoggedIn" (click)="logout()">Logout</button>
-            <a [hidden]="isLoggedIn" routerLink="/login">Login</a>
-        </li>
-        <li class="inline-block m-2 p-2 rounded-lg hover:bg-gray-200 hover:text-black"><a
-                routerLink="/register">Register</a></li>
-    </ul>
+<nav class="flex justify-between bg-gray-800 px-4 py-1">
+    <div class="flex space-x-4">
+        <a class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium" routerLink="/">Home</a>
+        <a class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium" routerLink="/chat">Chat</a>
+    </div>
+    <div [hidden]="!isLoggedIn" class="relative">
+        <button (click)="displayDropdown()">
+            <img #toggleButton src="/assets/yenanh.jpeg" class="h-8 w-8 rounded-full">
+        </button>
+        <div [ngClass]="dropdownStatus" role="menu"
+            class="hidden absolute right-0 w-36 shadow-lg mt-1 py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-slate-100" role="menuitem"
+                routerLink="/settings">Settings</a>
+            <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-slate-100"
+                (click)="logout()">Logout</button>
+        </div>
+    </div>
 </nav>

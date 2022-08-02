@@ -14,9 +14,10 @@ export class ProfileComponent implements OnInit {
     email: '',
     firstName: '',
     lastName: '',
-    password: ''
+    password: '',
   };
   constructor(private apiService: ApiService) { }
+  photoUrl!: string;
 
   ngOnInit(): void {
     this.getProfile();
@@ -31,7 +32,13 @@ export class ProfileComponent implements OnInit {
     this.apiService.get('/account/profile').subscribe(data => {
       if (data) {
         this.form = data;
+        this.photoUrl = data.photoUrl;
+        console.log('photoUrl: ' + data.photoUrl);
       }
     });
+  }
+
+  uploadPhoto(pictures: File[]) {
+
   }
 }

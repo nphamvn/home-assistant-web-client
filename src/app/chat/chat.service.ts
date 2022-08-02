@@ -39,7 +39,9 @@ export class ChatService {
       .build();
 
     this.connection.start()
-      .then(() => { })
+      .then(() => {
+        console.log('connected to chat hub');
+      })
       .catch(err => console.log('Error while establishing connection'));
 
     this.connection.on('MessageSent', (message: Message) => {

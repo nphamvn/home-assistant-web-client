@@ -1,22 +1,23 @@
-<div class="container flex justify-center m-10">
-    <div
-        class="container flex justify-center bg-gradient-to-r from-yellow-50 via-violet-300 to-yellow-300 max-w-xl rounded-xl text-white">
-        <div class="text-center">
-            <h3>Bedroom Light</h3>
-            <div class="flex">
-                <div class="flex-1">
-                    <button>-</button>
-                </div>
-                <div class="flex-2">Icon</div>
-                <div class="flex-1">
-                    <button>+</button>
+<div class="container flex justify-center m-8">
+    <div class="container bg-yellow-400 max-w-xl rounded-xl text-white p-2">
+        <h3 class="text-center">Bedroom Light</h3>
+        <div class="flex justify-center mb-5">
+            <div class="w-3/5 h-8 rounded-full bg-gray-200">
+                <div [ngStyle]="{'width.%': (bedroom.brightness) * 10 }" class="h-full rounded-full bg-blue-600">
                 </div>
             </div>
-            <div class="flex justify-around" style="background-color:antiquewhite;">
-                <div class="flex-1">1</div>
-                <div class="flex-1">2</div>
-                <div class="flex-1">3</div>
-            </div>
+        </div>
+        <div class="flex justify-evenly">
+            <button [disabled]="bedroom.status == 'on'" class="w-12 h-12 rounded-md bg-red-200 p-2"
+                (click)="turnOnLight('bedroom')">
+                <fa-icon [icon]="faPowerOff" [size]="'2x'"></fa-icon>
+            </button>
+            <button class="w-12 rounded-md bg-indigo-400 p-2 text-white" (click)="dim('bedroom')">
+                <fa-icon [icon]="faMinus" [size]="'lg'"></fa-icon>
+            </button>
+            <button class="w-12 rounded-md bg-indigo-400 p-2 text-white" (click)="brighten('bedroom')">
+                <fa-icon [icon]="faPlus" [size]="'lg'"></fa-icon>
+            </button>
         </div>
     </div>
 </div>

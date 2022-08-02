@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { faPaperPlane, faPlane } from '@fortawesome/free-solid-svg-icons';
 import { UuidService } from 'src/app/shared/services/uuid.service';
 import { ChatService } from '../chat.service';
 import { Conversation } from '../conversation';
@@ -20,7 +21,7 @@ export class SendMessageComponent implements OnInit {
       this.conversation = conversation;
     });
   }
-
+  faPlane = faPaperPlane;
   ngOnInit(): void {
   }
 

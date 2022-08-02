@@ -8,6 +8,8 @@ import { MessageViewComponent } from './message-view/message-view.component';
 import { ContactComponent } from './contact/contact.component';
 import { ChatComponent } from './chat/chat.component';
 import { SendMessageComponent } from './send-message/send-message.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { SendMessageComponent } from './send-message/send-message.component';
   imports: [
     CommonModule,
     FormsModule,
-    ChatRoutingModule
+    ChatRoutingModule,
+    FontAwesomeModule
   ]
 })
 export class ChatModule { }

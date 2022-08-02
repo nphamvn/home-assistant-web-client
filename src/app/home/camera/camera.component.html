@@ -1,1 +1,10 @@
-<p>camera works!</p>
+<div class="container flex justify-center m-10">
+    <div class="max-w-xl">
+        <div class="bg-gray rounded-lg border-2 border-slate-300">
+            <video #video width="320" height="240"></video>
+        </div>
+        <div>
+            <button [disabled]="streaming" (click)="initVideo()">Play</button>
+        </div>
+    </div>
+</div>
